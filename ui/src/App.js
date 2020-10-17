@@ -13,9 +13,6 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <AuthContext.Consumer>
-          {
-            () => (
               <Routes>
                 <Route path='/' element={<HomePage />} />
                 <Route path='/login' element={<Login />} />
@@ -23,9 +20,6 @@ function App() {
                 {/* <Route path='/login' />
                 <Route path='/loggedIn' /> */}
               </Routes>
-            )
-          }
-        </AuthContext.Consumer>
       </AuthProvider>
     </BrowserRouter>
   );
