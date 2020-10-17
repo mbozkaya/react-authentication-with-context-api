@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useLayoutEffect, useState } from 'react';
+import React, {useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Navigate, Route } from 'react-router';
 
@@ -14,6 +14,7 @@ const AuthProvider = props => {
     const { children } = props;
 
     const onLogin = model => {
+        console.log(model);
         //Go Service with model and take authentication 
         // localStorage.setItem('token', data.token);
         // localStorage.setItem('ug', data.guid);
