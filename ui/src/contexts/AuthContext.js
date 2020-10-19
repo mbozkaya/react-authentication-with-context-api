@@ -1,46 +1,51 @@
-import React, {useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Navigate, Route } from 'react-router';
+import MockApi from '../components/MockApi';
 
 
 const AuthContext = React.createContext();
 
 const AuthProvider = props => {
-
     const [contextState, SetContextState] = useState({
         authorize: false,
     });
 
     const { children } = props;
+    const mockApi = new MockApi({ username: 'test@test.com', password: 'test123' }, 1000);
 
     const onLogin = model => {
         console.log(model);
-        //Go Service with model and take authentication 
-        // localStorage.setItem('token', data.token);
-        // localStorage.setItem('ug', data.guid);
-        // localStorage.setItem('user', JSON.stringify(data));
+        mockApi.authenticate(model.email, model.password)
+            .then(response => {
+                if (response.error === false) {
+                    localStorage.setItem('email', model.email);
+                    localStorage.setItem('password', model.password);
+                    SetContextState({
+                        authorize: true,
+                    })
+                }
+            })
     }
 
     const onLogout = () => {
 
-        // localStorage.removeItem('token');
-        // localStorage.removeItem('ug');
-        // localStorage.removeItem('user');
-
-        // SetContextState({
-        //     authorize: false,
-        // });
+        localStorage.removeItem('email');
+        localStorage.removeItem('password');
+        SetContextState({
+            authorize: false,
+        })
     }
 
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         //Check authentication from api
-
-        // setTimeout(() => {
-        //     SetContextState({
-        //         authorize: true,
-        //     })
-        // }, 300);
+        const auth = mockApi.checkAuthenticate();
+        if (auth !== contextState.authorize) {
+            SetContextState({
+                authorize: auth,
+            });
+        }
     });
 
     return (
