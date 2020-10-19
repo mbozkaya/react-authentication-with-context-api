@@ -10,7 +10,7 @@ import {
     TextField,
     makeStyles
 } from '@material-ui/core';
-import Page from '../components/page';
+import Page from '../components/Page';
 
 const useStyles = makeStyles((theme) => ({
     root: {
