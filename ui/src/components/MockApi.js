@@ -43,7 +43,7 @@ class MockApi {
         const password = localStorage.getItem('password');
         const users = Array(this.getAllUsers());
         let user = users.find((user) => user.username === email && user.password === password);
-
+        
         if (user) {
             return true;
         }
