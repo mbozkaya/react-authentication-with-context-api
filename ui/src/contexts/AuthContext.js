@@ -9,6 +9,7 @@ const AuthContext = React.createContext();
 const AuthProvider = props => {
     const [contextState, SetContextState] = useState({
         authorize: false,
+        checkAuth: false,
     });
 
     const { children } = props;
@@ -23,8 +24,15 @@ const AuthProvider = props => {
                     localStorage.setItem('password', model.password);
                     SetContextState({
                         authorize: true,
+                        checkAuth: true,
+                    })
+                } else {
+                    SetContextState({
+                        authorize: false,
+                        checkAuth: true,
                     })
                 }
+
             })
     }
 
@@ -34,24 +42,25 @@ const AuthProvider = props => {
         localStorage.removeItem('password');
         SetContextState({
             authorize: false,
+            checkAuth: true,
         })
     }
 
-
-    useEffect(() => {
-        //Check authentication from api
+    useLayoutEffect(() => {
         const auth = mockApi.checkAuthenticate();
         if (auth !== contextState.authorize) {
             SetContextState({
                 authorize: auth,
+                checkAuth: true,
             });
         }
-    });
+    }, [])
 
     return (
         <AuthContext.Provider
             value={{
                 authorize: contextState.authorize,
+                checkAuth: contextState.checkAuth,
                 onLogin,
                 onLogout,
             }}
@@ -63,7 +72,7 @@ const AuthProvider = props => {
 
 const AuthRoute = ({ component: Component, ...rest }) => (
     <AuthContext.Consumer>
-        {({ authorize }) => {
+        {({ authorize, checkAuth }) => {
             let content = '';
 
             if (authorize) {
@@ -75,7 +84,7 @@ const AuthRoute = ({ component: Component, ...rest }) => (
                         {...rest}
                     />
                 );
-            } else {
+            } else if (checkAuth && !authorize) {
                 console.log('You must be login')
                 content = <Navigate to="/" />;
             }
