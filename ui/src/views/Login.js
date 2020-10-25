@@ -10,6 +10,7 @@ import {
     TextField,
     makeStyles
 } from '@material-ui/core';
+import { Alert, AlertTitle } from '@material-ui/lab';
 import Page from '../components/Page';
 
 const useStyles = makeStyles((theme) => ({
@@ -17,7 +18,13 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.dark,
         height: '100%',
         paddingBottom: theme.spacing(3),
-        paddingTop: theme.spacing(3)
+        paddingTop: theme.spacing(3),
+    },
+    alert: {
+        width: '100%',
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
     }
 }));
 
@@ -27,7 +34,7 @@ const Login = () => {
     const classes = useStyles();
     return (
         <AuthContext.Consumer>
-            {({ authorize, onLogin }) => (
+            {({ authorize, onLogin, error }) => (
                 (authorize ? <Navigate to='/dashboard' /> :
                     <Page
                         className={classes.root}
@@ -58,11 +65,15 @@ const Login = () => {
                                         handleBlur,
                                         handleChange,
                                         handleSubmit,
-                                        isSubmitting,
                                         touched,
                                         values
                                     }) => (
                                             <form onSubmit={handleSubmit}>
+                                                {
+                                                    error && (<div className={classes.alert}>
+                                                        <Alert severity="error"><AlertTitle>Error</AlertTitle>Your username or your password is <strong>incorrect!</strong></Alert>
+                                                    </div>)
+                                                }
                                                 <TextField
                                                     error={Boolean(touched.email && errors.email)}
                                                     fullWidth
@@ -92,14 +103,13 @@ const Login = () => {
                                                 <Box my={2}>
                                                     <Button
                                                         color="primary"
-                                                        disabled={isSubmitting}
                                                         fullWidth
                                                         size="large"
                                                         type="submit"
                                                         variant="contained"
                                                     >
                                                         Sign in now
-                            </Button>
+                                                    </Button>
                                                 </Box>
                                             </form>
                                         )}
