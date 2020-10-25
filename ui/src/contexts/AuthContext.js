@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Navigate, Route } from 'react-router';
 import MockApi from '../components/MockApi';
@@ -7,54 +7,89 @@ import MockApi from '../components/MockApi';
 const AuthContext = React.createContext();
 
 const AuthProvider = props => {
-    const [contextState, SetContextState] = useState({
+    const [contextState, setContextState] = useState({
         authorize: false,
         checkAuth: false,
+        backdrop: false,
+        error: false,
+        success: false,
     });
 
     const { children } = props;
-    const mockApi = new MockApi({ username: 'test@test.com', password: 'test123' }, 1000);
+    const mockApi = new MockApi(JSON.parse(localStorage.getItem('mockApiUsers')) || { username: 'test@test.com', password: 'test123' }, 1000);
 
     const onLogin = model => {
-        console.log(model);
+        setContextState({
+            ...contextState,
+            backdrop: true,
+        });
         mockApi.authenticate(model.email, model.password)
             .then(response => {
                 if (response.error === false) {
                     localStorage.setItem('email', model.email);
                     localStorage.setItem('password', model.password);
-                    SetContextState({
+                    setContextState({
                         authorize: true,
                         checkAuth: true,
-                    })
+                        backdrop: false,
+                        error: false,
+                    });
+                    console.clear();
                 } else {
-                    SetContextState({
+                    setContextState({
                         authorize: false,
                         checkAuth: true,
-                    })
+                        backdrop: false,
+                        error: true,
+                    });
                 }
-
-            })
-    }
+            });
+    };
 
     const onLogout = () => {
-
         localStorage.removeItem('email');
         localStorage.removeItem('password');
-        SetContextState({
+        setContextState({
+            ...contextState,
             authorize: false,
             checkAuth: true,
-        })
+        });
+    };
+
+    const signIn = model => {
+        setContextState({
+            ...contextState,
+            backdrop: true,
+        });
+        mockApi.signInUser(model.email, model.password).then(response => {
+            if (response && response.error === false) {
+                setContextState({
+                    ...contextState,
+                    backdrop: false,
+                    success: true,
+                    error:false,
+                });
+            } else {
+                setContextState({
+                    ...contextState,
+                    backdrop: false,
+                    error: true,
+                    success: false,
+                });
+            }
+        });
     }
 
     useLayoutEffect(() => {
         const auth = mockApi.checkAuthenticate();
         if (auth !== contextState.authorize) {
-            SetContextState({
+            setContextState({
+                ...contextState,
                 authorize: auth,
                 checkAuth: true,
             });
         }
-    }, [])
+    }, []);
 
     return (
         <AuthContext.Provider
@@ -63,6 +98,10 @@ const AuthProvider = props => {
                 checkAuth: contextState.checkAuth,
                 onLogin,
                 onLogout,
+                backdrop: contextState.backdrop,
+                error: contextState.error,
+                success:contextState.success,
+                signIn,
             }}
         >
             {children}
