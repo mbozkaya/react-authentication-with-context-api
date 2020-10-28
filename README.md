@@ -1,68 +1,55 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+###### Türkçe bilgilendirmeyi aşağıda bulabilirsiniz.
+# React Authentication Using Context Api
 
-## Available Scripts
+Context was came after React version 16.3. In react, data is passed top-down (Parent to child) via props. When you want to pass data from Layout to one component where inside a few layer. You have to need  pass props to every layer componentes. Context is primarily used when some data needs to be accessible by many components at different nesting levels. In this expamle, Demonstrates how to use context in authenticate.
 
-In the project directory, you can run:
+You can learn more information about context in [here](https://reactjs.org/docs/context.html)
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+If you want to clone your local environment. You can use below command
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```bash
+git clone https://github.com/mbozkaya/react-authentication-with-context-api.git
+```
 
-### `npm test`
+## Live Preview
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You can click [here](https://sad-kalam-2fe6f8.netlify.app/) to look at the live preview.
 
-### `npm run build`
+## Usage
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In this example, You able to use these features which login, signup and logout. Also I want to say, I've done login and signup requests use client side. If you want to look at this you can clik [here](https://github.com/mbozkaya/react-authentication-with-context-api/blob/main/src/components/MockApi.js)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Please make sure to update tests as appropriate.
 
-### `npm run eject`
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#
+#
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Context Kullanarak React Authentication Yapılandırması
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Context özelliği React'ın 16.3 versiyonundan sonra gelmiştir. Bu özellik sayesinde artık componentler arası state paylaşımı basit hale gelmiştir. React'ta bilindiği üzere componentler arası veri paylaşımı yukarıdan aşağıya yani parenttan child'a doğrudur ve aksi yönde veri paylaşmak için farklı yöntemler kullanılmaktadır. Ayrıca veriyi paylaşmak için en üst componentten hedef component'e kadar her component veriyi içeri aktarmak zorundadır. Context özelliğiyle birlikte bu zorunluluk ortadan kalkmış ve Oluşturulan bir context, useContext metoduyla her yerden erişilebilir hale gelmiştir. Bu sayede veri paylaşımı basit hale gelmiştir. Bu örnekte Context yaklaşımıyla authentication yapılandırmasını göreceksiniz.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Context hakkında daha fazla bilgi almak için [burayı](https://reactjs.org/docs/context.html) ziyaret edebilirsiniz.
 
-## Learn More
+## Canlı Örnek
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[Buraya](https://sad-kalam-2fe6f8.netlify.app/)  tıklayarak canlı örneğe göz atabilirsiniz.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Kullanım
 
-### Code Splitting
+Basit bir şekilde web sitesine giriş yapma, çıkış yapma ve kaydolma özelliklerini kullanabilirsiniz. Tamamıyla client tarafında çalışan bir örnek olduğu için ön tarafta sahte bir api requesti kullanmaktadır. Sahte apiyi incelemek için [buraya](https://github.com/mbozkaya/react-authentication-with-context-api/blob/main/src/components/MockApi.js) tıklayabilirsiniz.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-### Analyzing the Bundle Size
+## Katılımcı Olmak
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Bir düzeltme yada geliştirme yapmak için rahatlıkla çekme isteği(PR yada MR) oluşturabilirsiniz.
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Lisans
+[MIT](https://choosealicense.com/licenses/mit/)
