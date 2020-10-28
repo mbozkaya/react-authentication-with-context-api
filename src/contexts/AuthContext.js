@@ -89,6 +89,7 @@ const AuthProvider = props => {
                 checkAuth: true,
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
