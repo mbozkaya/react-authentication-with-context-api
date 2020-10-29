@@ -1,4 +1,4 @@
-class MockApi {
+export default class MockApi {
     constructor(defaultUsers = [], latency = 500) {
         this.defaultUsers = defaultUsers;
         this.latency = latency;
@@ -69,4 +69,3 @@ class MockApi {
     }
 }
 
-export default MockApi;
